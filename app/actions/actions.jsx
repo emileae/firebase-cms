@@ -48,6 +48,36 @@ export var addTodos = (todos) => {
   };
 };
 
+export var startAddTodos = () => {
+  return (dispatch, getState) => {
+    var todosRef = firebaseRef.child('todos');
+    return todosRef.once('value').then((snapshot) => {
+      var todos = snapshot.val() || {};
+      var parsedTodos = [];
+
+      Object.keys(todos).forEach((todoId) => {
+        parsedTodos.push({
+          id: todoId,
+          ...todos[todoId]
+        });
+      });
+
+      dispatch(addTodos(parsedTodos));
+
+      // var todosObj = snapshot.val();
+      // var keysArray = Object.keys(todosObj);
+      // var todos = keysArray.map((k) => {
+      //   return {
+      //     ...todosObj[k],
+      //     id: k
+      //   }
+      // });
+      // console.log('todos', todos);
+      // dispatch(addTodos(todos));
+    });
+  };
+};
+
 export var updateTodo = (id, updates) => {
   return {
     type: "UPDATE_TODO",
