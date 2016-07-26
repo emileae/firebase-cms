@@ -138,11 +138,31 @@ describe("Actions", () => {
         expect(mockActions[0].type).toEqual('ADD_TODOS');
         expect(mockActions[0].todos.length).toEqual(1);
         expect(mockActions[0].todos[0].text).toEqual('Something to do');
-        
+
         done();
       }, done);
 
     });
 
   });
+
+  describe('Auth tests', () => {
+    it('should generate a LOGIN action', () => {
+      const action = {
+        type: "LOGIN",
+        uid: '123456qwerty'
+      };
+      const res = actions.login(action.uid);
+      expect(res).toEqual(action);
+    });
+    it('should generate a LOGOUT action', () => {
+      const action = {
+        type: "LOGOUT"
+      };
+      const res = actions.logout();
+      expect(res).toEqual(action);
+    });
+  });
+
+
 });

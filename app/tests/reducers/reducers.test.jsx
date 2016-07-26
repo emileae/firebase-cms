@@ -92,4 +92,30 @@ describe("Reducers", () => {
     });
   });
 
+  describe('authReducer', () => {
+    it('should add uid after login', () => {
+
+        const action = {
+          type: "LOGIN",
+          uid: '1223fghjgh'
+        };
+        const res = reducers.authReducer(undefined, df(action));
+        expect(res).toEqual({
+          uid: action.uid
+        });
+
+    });
+    it('should remove uid after logout', () => {
+      const authData = {
+        uid: '1223fghjgh'
+      }
+        const action = {
+          type: "LOGOUT"
+        };
+        const res = reducers.authReducer(df(authData), df(action));
+        expect(res).toEqual({});
+
+    });
+  });
+
 });
