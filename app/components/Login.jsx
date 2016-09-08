@@ -6,7 +6,6 @@ import * as actions from 'actions';
 export var Login = React.createClass({
   onLogin() {
     var {dispatch} = this.props;
-
     dispatch(actions.startLogin());
   },
   render() {
@@ -19,9 +18,9 @@ export var Login = React.createClass({
             <div className="callout callout-auth">
               <h3>Login</h3>
               <p>
-                Login with GitHub account below.
+                Login with your Facebook account below.
               </p>
-              <button className="button" onClick={this.onLogin}>Login with GitHub</button>
+              <button className="button" onClick={this.onLogin}>Login with Facebook</button>
             </div>
           </div>
         </div>

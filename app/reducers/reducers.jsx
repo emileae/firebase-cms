@@ -1,6 +1,26 @@
 var uuid = require('node-uuid');
 var moment = require('moment');
 
+
+// UI
+
+export var uiReducer = (state = {open:false}, action) => {
+  switch(action.type){
+    case 'UI_DRAWER':
+      return {
+        ...state,
+        open: action.open
+      };
+    default:
+      return state
+  }
+};
+
+
+
+
+
+
 export var searchTextReducer = (state = '', action) => {
   switch(action.type){
     case 'SET_SEARCH_TEXT':

@@ -8,11 +8,16 @@ var store = require('configureStore').configure();
 import firebase from 'app/firebase/';
 import router from 'app/router/';
 
+import injectTapEventPlugin from 'react-tap-event-plugin';
+injectTapEventPlugin();
+
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
 firebase.auth().onAuthStateChanged((user) => {
   if (user) {
     store.dispatch(actions.login(user.uid));
     store.dispatch(actions.startAddTodos());
-    hashHistory.push('/todos');
+    hashHistory.push('/dashboard');
   }else{
     store.dispatch(actions.logout());
     hashHistory.push('/');
@@ -27,7 +32,9 @@ require('style!css!sass!applicationStyles')
 
 ReactDOM.render(
   <Provider store={store}>
+    <MuiThemeProvider>
     {router}
+    </MuiThemeProvider>
   </Provider>,
   document.getElementById('app')
 );

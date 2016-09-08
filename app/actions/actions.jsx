@@ -1,7 +1,20 @@
 import moment from 'moment';
 
-import firebase, {firebaseRef, githubProvider} from 'app/firebase/';// if file is called index can leave off filename
+import firebase, {firebaseRef, facebookProvider} from 'app/firebase/';// if file is called index can leave off filename
 
+// MATERIAL UI
+export var setDrawer = (open) => {
+  return {
+    type: "UI_DRAWER",
+    open
+  }
+};
+
+
+
+
+
+// old actions
 export var setSearchText = (searchText) => {
   return {
     type: "SET_SEARCH_TEXT",
@@ -114,7 +127,7 @@ export var login = (uid) => {
 };
 export var startLogin = () => {
   return (dispatch, getState) => {
-    return firebase.auth().signInWithPopup(githubProvider).then((result) => {
+    return firebase.auth().signInWithPopup(facebookProvider).then((result) => {
       console.log("Auth worked", result);
     }, (error) => {
       console.log('unable to auth', error);
