@@ -16,7 +16,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 firebase.auth().onAuthStateChanged((user) => {
   if (user) {
     store.dispatch(actions.login(user.uid));
-    store.dispatch(actions.startAddTodos());
+    //store.dispatch(actions.startAddTodos());
     hashHistory.push('/dashboard');
   }else{
     store.dispatch(actions.logout());

@@ -11,6 +11,76 @@ export var setDrawer = (open) => {
 };
 
 
+// set an array-like property
+export var startAddPost = (postData) => {
+  return (dispatch, getState) => {
+    var post = {
+      ...postData,
+      createdAt: moment().unix(),
+      publish: false
+    };
+
+    // can use auth ID to create a user space
+    //var uid = getState().auth.uid;
+
+    // create post in DB, ASYNC
+    var postRef = firebaseRef.child(`posts`).push(post);
+
+    // update the state
+    return postRef.then(() => {
+      dispatch(addPost({
+        ...post,
+        id: postRef.key
+      }));
+    });
+  };
+};
+
+export var addPost = (post) => {
+  return {
+    type: "ADD_POST",
+    post
+  }
+};
+
+export var addPosts = (posts) => {
+  return {
+    type: 'ADD_POSTS',
+    posts
+  };
+};
+
+export var startAddPosts = () => {
+  return (dispatch, getState) => {
+    //var uid = getState().auth.uid;
+    var postsRef = firebaseRef.child(`posts`);
+    return postsRef.once('value').then((snapshot) => {
+      var posts = snapshot.val() || {};
+      var parsedPosts = [];
+
+      Object.keys(posts).forEach((postId) => {
+        parsedPosts.push({
+          id: postId,
+          ...posts[postId]
+        });
+      });
+
+      dispatch(addPosts(parsedPosts));
+
+    });
+  };
+};
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -3,7 +3,6 @@ var moment = require('moment');
 
 
 // UI
-
 export var uiReducer = (state = {open:false}, action) => {
   switch(action.type){
     case 'UI_DRAWER':
@@ -15,6 +14,44 @@ export var uiReducer = (state = {open:false}, action) => {
       return state
   }
 };
+
+
+// add array-like property to state
+export var postReducer = (state = [], action) => {
+  switch(action.type){
+    case 'ADD_POST':
+      return [
+        ...state,
+        action.post
+      ];
+    case 'UPDATE_POST':
+      return state.map((todo) => {
+          if (todo.id === action.id){
+            return {
+              ...todo,
+              ...action.updates
+            }
+          } else{
+            return todo;
+          }
+        });
+    case 'ADD_POSTS':
+      return [
+        ...state,
+        ...action.posts
+      ];
+    case 'LOGOUT':
+      return []
+    default:
+      return state;
+  };
+};
+
+
+
+
+
+
 
 
 
